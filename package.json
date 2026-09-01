@@ -1,0 +1,60 @@
+{
+  "name": "bucora-app",
+  "version": "1.0.0",
+  "description": "Aplicación de escritorio Bucora",
+  "main": "src/main.js",
+  "author": "Bucora",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "app.bucora.desktop",
+    "productName": "Bucora",
+    "asar": true,
+    "publish": null,
+    "files": [
+      "src/**/*"
+    ],
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "mac": {
+      "category": "public.app-category.business",
+      "icon": "build/icon.png",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        }
+      ]
+    },
+    "dmg": {
+      "title": "Bucora ${version}",
+      "contents": [
+        { "x": 130, "y": 220, "type": "file" },
+        { "x": 410, "y": 220, "type": "link", "path": "/Applications" }
+      ]
+    },
+    "win": {
+      "icon": "build/icon.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}

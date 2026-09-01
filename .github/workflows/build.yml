@@ -9,7 +9,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [macos-13, windows-latest]
+        os: [macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -24,7 +24,11 @@ jobs:
         run: npm install
 
       - name: Build app
-        run: npm run dist -- --publish=never
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 15
+          max_attempts: 3
+          command: npm run dist -- --publish=never
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
